@@ -1,0 +1,79 @@
+% proof.sty     Macros for proof notation
+%
+% Erik MacLennan and Morten Kals
+%
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+% 
+\ProvidesPackage{proof}
+ 
+\RequirePackage{amsfonts}
+
+\newcommand{\e}{\mathrm{e}}
+
+% Shorthand for natural numbers, integers, rational numbers and real numbers
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\Z}{\mathbb{Z}} 
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}} 
+
+
+% Set{...|...} Only the first | is treated specially.
+{\catcode`\|=\active
+  \xdef\set{\protect\expandafter\noexpand\csname set \endcsname}
+  \expandafter\gdef\csname set \endcsname#1{\mathinner
+        {\lbrace\,{\mathcode`\|32768\let|\midvert #1}\,\rbrace}}
+  \xdef\Set{\protect\expandafter\noexpand\csname Set \endcsname}
+  \expandafter\gdef\csname Set \endcsname#1{\left\{%
+     \ifx\SavedDoubleVert\relax \let\SavedDoubleVert\|\fi
+     \:{\let\|\SetDoubleVert
+     \mathcode`\|32768\let|\SetVert
+     #1}\:\right\}}
+}
+
+\def\midvert{\egroup\mid\bgroup}
+\def\SetVert{\@ifnextchar|{\|\@gobble}% turn || into \|
+    {\egroup\;\mid@vertical\;\bgroup}}
+\def\SetDoubleVert{\egroup\;\mid@dblvertical\;\bgroup}
+
+
+% If the user is using e-TeX with its \middle primitive, use that for
+% verticals instead of \vrule.
+%
+\begingroup
+ \edef\@tempa{\meaning\middle}
+ \edef\@tempb{\string\middle}
+\expandafter \endgroup \ifx\@tempa\@tempb
+ \def\mid@vertical{\middle|}
+ \def\mid@dblvertical{\middle\SavedDoubleVert}
+\else
+ \def\mid@vertical{\mskip1mu\vrule\mskip1mu}
+ \def\mid@dblvertical{\mskip1mu\vrule\mskip2.5mu\vrule\mskip1mu}
+\fi
+
+
+% pSt{...|...}
+
+\usepackage[mathscr]{euscript}
+%\let\euscr\mathscr \let\mathscr\relax % just so we can load this and rsfs
+%\usepackage[scr]{rsfso}
+
+% pSet{...|...} Only the first | is treated specially.
+
+{\catcode`\|=\active
+  \xdef\pset{\protect\expandafter\noexpand\csname pset \endcsname}
+  \expandafter\gdef\csname pset \endcsname#1{\mathinner
+        {\mathscr{P}(\,{\mathcode`\|32768\let|\midvert #1}\,)}}
+  \xdef\pSet{\protect\expandafter\noexpand\csname pSet \endcsname}
+  \expandafter\gdef\csname pSet \endcsname#1{\mathscr{P}\left(%
+     \ifx\SavedDoubleVert\relax \let\SavedDoubleVert\|\fi
+     \:{\let\|\SetDoubleVert
+     \mathcode`\|32768\let|\SetVert
+     #1}\:\right)}
+}
+
+\endinput
+%%
+%% End of file `mypackage.sty'.
+
