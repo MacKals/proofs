@@ -20,6 +20,7 @@
 
 
 % Set{...|...} Only the first | is treated specially.
+
 {\catcode`\|=\active
   \xdef\set{\protect\expandafter\noexpand\csname set \endcsname}
   \expandafter\gdef\csname set \endcsname#1{\mathinner
@@ -58,6 +59,8 @@
 \usepackage[mathscr]{euscript}
 %\let\euscr\mathscr \let\mathscr\relax % just so we can load this and rsfs
 %\usepackage[scr]{rsfso}
+
+\newcommand{\p}{\mathscr{P}} 
 
 % pSet{...|...} Only the first | is treated specially.
 
