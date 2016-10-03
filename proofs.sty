@@ -6,9 +6,18 @@
 %% of the LaTeX Project Public License Distributed from CTAN archives
 %% in directory macros/latex/base/lppl.txt.
 % 
+% To install packages: use tlmgr, e.g. "tlmgr install package"
+
 \ProvidesPackage{proof}
  
-\RequirePackage{amsfonts}
+\RequirePackage{amsfonts, amssymb, amsmath, amsthm}
+
+\RequirePackage{scrextend} % package for labeling 
+\RequirePackage{enumitem}% for description without indent http://ctan.org/pkg/enumitem
+
+\setlength\parindent{0pt} % turn off indentation of paragraphs
+\setcounter{secnumdepth}{0} 
+
 
 \newcommand{\e}{\mathrm{e}}
 
